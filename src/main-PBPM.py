@@ -3,12 +3,12 @@
 """
 
 STALICLA
-BPM Module (2)
+PBPM Module (2)
 
 This script calls the PBPM module and integrates its functions with the user arguments.
 
 Author: Gabriela Martinez - airamgabriela17@gmail.com
-Last update: August 2019
+
 
 """
 

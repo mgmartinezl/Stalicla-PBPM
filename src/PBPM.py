@@ -9,7 +9,6 @@ This module contains the functions to create a general protocol to generate pati
 (PBPMs). It takes two main file types to generate a PBPM matrix according to user parameters passed via command line.
 
 Author: Gabriela Martinez - airamgabriela17@gmail.com
-Last update: August 2019
 
 """
 
