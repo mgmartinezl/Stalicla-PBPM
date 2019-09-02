@@ -787,3 +787,6 @@ def logging_info(args, folderpath, folderpath2):
                  "PBP matrix downloaded at: " + folderpath2 + '\n' + '\n' +
                  "Base matrix downloaded? " + none_to_str(args['r']) + '\n' +
                  is_base + is_append)
+
+    print("---")
+    print("Protocol successfully generated!")

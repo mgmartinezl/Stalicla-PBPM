@@ -86,12 +86,8 @@ def main():
 
     download_pbpm(args['matrix'], pbpm, command, b_csv_name, n_csv_name, nn_csv_name)
 
-    ###################################################################################################################
-
     # Create raw base matrix
     base_matrix = create_base_matrix(data)
-
-    ###################################################################################################################
 
     # Download base matrix if desired
     base_matrix_downloaded = download_matrix(args['r'], base_matrix, command, csv_name)
@@ -104,11 +100,6 @@ def main():
 
     # Process appended matrix for end user
     edit_lines(args['append'], base_matrix_appended_to_return, dir_output)
-
-    print("---")
-    print("Protocol successfully generated!")
-
-    ###################################################################################################################
 
     logging_info(args, dir_logs, dir_output)
 
