@@ -67,7 +67,7 @@ all available pathways will be extracted by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of pathways separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-pathway R-HSA-69620,0051705 ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-pathway ~/PBPM/data/raw/filters/my-file-containing-pathways.txt``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-pathway ~/PBPM/data/raw/filters/my-file-containing-pathways.txt```
 
 * **-gene:** optional argument to extract only specific genes. If no setting is provided,
 all available genes will be extracted by default.
@@ -152,16 +152,16 @@ Thus, it will not be necessary to explicitly set the -r parameter to 'yes', unle
 ### Input files
 
 A sample of the file required by the first positional argument (the input file containing mutations and patients)
-can be found in the folder **data/raw**. For direct access, click [here.]() 
+can be found in the folder **data/raw**. For direct access, click [here.](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/original-mutations-file.txt) 
 
-Similarly, in the **data/raw/pathways** folder, a sample of a directory containing pathways can be found, which is a mandatory
-parameter for _pathwaysDirectory_ entry. See it directly [here.]()
+Similarly, in the [**data/raw/pathways**](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/data/raw/pathways) folder, a sample of a directory containing pathways can be found, which is a mandatory
+parameter for _pathwaysDirectory_ entry. 
 
-Additional example text files to filter can be found in the folder **data/raw/filters**
-[genes](), 
-[patients](), 
-[pathways]() and
-[mutations]() 
+Additional example text files to filter can be found in the folder [**data/raw/filters**](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/data/raw/filters):
+[genes](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-genes.txt), 
+[patients](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-patients.txt), 
+[pathways](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-pathways.txt) and
+[mutations](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-mutations.txt) 
 can be found in the folder as well.
 
 ### Running tests

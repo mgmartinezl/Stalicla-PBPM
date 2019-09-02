@@ -12,7 +12,7 @@ Author: Gabriela Martinez - airamgabriela17@gmail.com
 
 """
 
-from PBPM import *
+from src.PBPM import *
 
 
 def main():
