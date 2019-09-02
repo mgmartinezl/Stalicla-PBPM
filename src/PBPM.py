@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-
 STALICLA
 PBPM Module (1)
-
 This module contains the functions to create a general protocol to generate patient by disrupted pathways matrices
 (PBPMs). It takes two main file types to generate a PBPM matrix according to user parameters passed via command line.
-
 Author: Gabriela Martinez - airamgabriela17@gmail.com
-
 """
 
 import pandas as pd

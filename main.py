@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 
 """
-
 STALICLA
 PBPM Module (2)
-
 This script calls the PBPM module and integrates its functions with the user arguments.
-
 Author: Gabriela Martinez - airamgabriela17@gmail.com
-
-
 """
 
 from src.PBPM import *
