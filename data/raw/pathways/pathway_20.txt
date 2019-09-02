@@ -1,0 +1,4 @@
+pathway_20
+CREBBP
+SMAD4
+SMAD2

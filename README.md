@@ -79,7 +79,7 @@ all available genes will be extracted by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of genes separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-gene CTR9,NOCL2 ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-gene ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-gene ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
 
 * **-patient:** optional argument to extract only specific patient IDs. If no setting is provided,
 all available patients will be extracted by default.
@@ -91,7 +91,7 @@ all available patients will be extracted by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of patients separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient Patient_X,Patient_Y ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
 
 * **-mutation:** optional argument to extract only specific mutations. If no setting is provided,
 all available consequences will be processed by default.
@@ -103,7 +103,7 @@ all available consequences will be processed by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of mutations separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation missense_variant,Intron ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired mutations to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
 
 * **-pli_gt:** optional argument to filter records with values greater than or equal to a specified pLI threshold.
     - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pli_gt 0.6 ```

@@ -1,0 +1,4 @@
+pathway_19
+NCOR1
+SMAD4
+SKI

@@ -1,0 +1,3 @@
+pathway_14
+CTNNB1
+TCF4
