@@ -21,7 +21,7 @@ Project Organization
     │                         the creator's initials, and a short `-` delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
     │
-    ├── references         <- Logs, data dictionaries, manuals, and all other explanatory materials.
+    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
@@ -32,35 +32,35 @@ Project Organization
 
 ### Description
 
-This repo contains a Python module to develop a general protocol to be executed to generate patient by disrupted 
-pathways matrices (also known as PBPMs).
+This repo contains a Python module to develop a general protocol to be executed to generate 
+patient by disrupted pathways matrices (also known as PBPMs).
 
 ### Interface
 
-This protocol is based on a function-oriented program, whose functions are called by a main method and executed from
- the command line interface. Future devops plans include the possibility of building a web GUI.
+This protocol is based on a function-oriented program, whose functions are called by a main 
+method and executed from the command line interface. 
 
 This project contains a module called [PBPM.py](hhttps://github.com/mgmartinezl/Stalicla-PBPM/blob/master/src/PBPM.py), which contains
-a set of functions integrated and called by the [main-PBPM.py](hhttps://github.com/mgmartinezl/Stalicla-PBPM/blob/master/src/main-PBPM.py) 
+a set of functions integrated and called by the [main.py](hhttps://github.com/mgmartinezl/Stalicla-PBPM/blob/master/src/main.py) 
 script. 
 
 #### Positional parameters
 
 * **inputFile:** it is mandatory to specify the absolute path to the input file containing the 
 patient mutations.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt```
 * **pathwaysDirectory:**  it is mandatory to specify the absolute path to the directory that 
 contains the pathway files with gene annotations.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/```
 
 #### Optional parameters
 
 * **-pathway:** optional argument to extract only specific pathways. If no setting is provided,
 all available pathways will be extracted by default.
     - Example 1: it will run only for pathway R-HSA-69620 \
-    ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pathway R-HSA-69620 ```
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pathway R-HSA-69620 ```
     - Example 2: it will run for all possible pathways \
-    ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ ```    
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ ```    
     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one pathway, you can specify one of the following: \
 \
@@ -72,7 +72,7 @@ all available pathways will be extracted by default.
 * **-gene:** optional argument to extract only specific genes. If no setting is provided,
 all available genes will be extracted by default.
     - Example: it will run only for gene CTR9 \
-    ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -gene CTR9 ```
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -gene CTR9 ```
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one gene, you can specify one of the following: \
 \
@@ -84,7 +84,7 @@ all available genes will be extracted by default.
 * **-patient:** optional argument to extract only specific patient IDs. If no setting is provided,
 all available patients will be extracted by default.
     - Example: it will run only for patient with ID 1 \
-    ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -patient Patient_1 ```
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -patient Patient_1 ```
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one patient ID, you can specify one of the following: \
 \
@@ -96,7 +96,7 @@ all available patients will be extracted by default.
 * **-mutation:** optional argument to extract only specific mutations. If no setting is provided,
 all available consequences will be processed by default.
     - Example: it will run only for mutations of type 'missense_variant' \
-    ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mutation missense_variant```
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mutation missense_variant```
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one mutation, you can specify one of the following: \
 \
@@ -106,25 +106,25 @@ all available consequences will be processed by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
 
 * **-pli_gt:** optional argument to filter records with values greater than or equal to a specified pLI threshold.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pli_gt 0.6 ```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pli_gt 0.6 ```
    
 * **-af_lt:** optional argument to filter records with values less than a max_control_AF threshold.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -af_lt 0.3 ```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -af_lt 0.3 ```
 
 * **-pph2:** optional argument to filter records for qualifiers of pph2 predictions. Available options for this
 parameter are: *benign*, *possibly damaging*, and *probably damaging*. Note that qualifiers must be enclosed with 
 quotes as they hold blank spaces.
-    - Example:  ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
+    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To filter more than one pph2 qualifier, you must separate their labels with comma and without spaces while keeping the quotes: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -pph2 "probably damaging,possibly damaging" ```
 
 * **-mpc_gt:** optional argument to filter records with values greater than or equal to a specified MPC threshold.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mpc_gt 0.7 ```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mpc_gt 0.7 ```
 
 * **-adj:** optional argument to filter records by specific value(s) of adjusted consequence. Available options for this
 parameter include: *PTV*, *Missense3*, *Missense*, etc. 
-    - Example:  ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -adj PTV ```
+    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -adj PTV ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To filter more than one pph2 qualifier, you must separate their labels with comma: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -adj Missense3,Missense ```
@@ -132,44 +132,40 @@ parameter include: *PTV*, *Missense3*, *Missense*, etc.
 * **-matrix:** optional argument to select the type of matrix to be extracted. It is only possible to generate one matrix at a time.
 Available options are: *binary(b)*, *numerical(n)*, *normalized(nn)*. If not set, the default value of this argument will return a binary matrix.
     - Example to explicitly generate a binary matrix : \
-     ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix b ```
+     ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix b ```
     - Example to generate a numerical matrix (not normalized): \
-      ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix n ```
+      ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix n ```
     - Example to generate a normalized numerical matrix: \
-     ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix nn ```
+     ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix nn ```
 
 * **-r:** set this parameter to yes (y) to download a copy of the base matrix (raw data) generated to build the PBP matrix. 
 By default, this parameter is set to no (n).
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -r y ```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -r y ```
 
 * **-append:** when this parameter is specified, the base matrix of the current session will be appended to the file provided. 
 Thus, it will not be necessary to explicitly set the -r parameter to 'yes', unless a separate copy of the base matrix is desired.
-    - Example: ```$ python3 main-PBPM.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -append path-to-my-historic-file.txt ```
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -append path-to-my-historic-file.txt ```
   
 
 **Note:** help() is available for all the parameters via the command line. 
 
 ### Input files
 
-A sample of the file required by the first positional argument (the input file containing mutations and patients)
-can be found in the folder **data/raw**. For direct access, click [here.](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/original-mutations-file.txt) 
+A sample of the file required by the first argument (the input file containing mutations and 
+patients) can be found in the folder **data/raw** of the repo. The name of the file is
+ **original-mutations-file.txt**.
 
-Similarly, in the [**data/raw/pathways**](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/data/raw/pathways) folder, a sample of a directory containing pathways can be found, which is a mandatory
-parameter for _pathwaysDirectory_ entry. 
+Similarly, in the [**data/raw/pathways**] folder, a sample of a directory containing pathways 
+can be found, which is a mandatory parameter for _pathwaysDirectory_ entry. 
 
-Additional example text files to filter can be found in the folder [**data/raw/filters**](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/data/raw/filters):
-[genes](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-genes.txt), 
-[patients](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-patients.txt), 
-[pathways](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-pathways.txt) and
-[mutations](https://github.com/mgmartinezl/Stalicla-PBPM/blob/master/data/raw/filters/my-file-containing-mutations.txt) 
-can be found in the folder as well.
+Additional example text files to filter can be found in the folder **data/raw/filters**.
 
 ### Running tests
 
-In the folders [references]() and 
-[data/processed](), three different running
-examples can be found. Each of them generates a log containing the parameters set to run the
-program, as well as the desired output.
+In the folder [reports](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/reports), 
+three different running examples can be found. Each of them generates a log containing the 
+parameters set to run the program, as well as the desired output. To see the logs please 
+visit **~/PBPM/analysis**.
 
 ## How to run this script
 

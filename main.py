@@ -20,12 +20,10 @@ def main():
     """ Main function to execute the PBPM protocol """
 
     directory = os.path.dirname(os.path.abspath(__file__))
-    folder_output = 'Output'
-    folder_logs = 'Logs'
+    folder_output = 'reports'
+    folder_logs = 'analysis'
     dir_output = os.path.join(directory, folder_output)
     dir_logs = os.path.join(directory, folder_logs)
-    create_directory(dir_output)
-    create_directory(dir_logs)
 
     csv_name = os.path.join(folder_output, 'base-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
     b_csv_name = os.path.join(folder_output, 'binary-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
@@ -106,22 +104,6 @@ def main():
 
     # Process appended matrix for end user
     edit_lines(args['append'], base_matrix_appended_to_return, dir_output)
-
-    print("---")
-    print("Base matrix:")
-    print(base_matrix.head(2))
-
-    if args['r'] == 'y':
-        print("---")
-        print("Base matrix successfully downloaded!")
-        if args['append'] != '':
-            print("Data appended to the file: " + args['append'])
-        else:
-            print("Data generated a new base matrix file. No appending done!")
-
-    print("---")
-    print("PBP matrix:")
-    print(pbpm.head(2))
 
     print("---")
     print("Protocol successfully generated!")
