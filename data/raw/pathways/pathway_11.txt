@@ -1,4 +1,0 @@
-pathway_11
-CREBBP
-CTNNB1
-TCF4
