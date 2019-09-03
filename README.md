@@ -1,7 +1,7 @@
 PBPM
 ==============================
 
-General protocol to generate patient by disrupted pathways matrices (PBPMs). \
+A command line interface program to generate patient by disrupted pathways matrices (PBPMs). \
 *Last update: Sep 03, 2019*
 
 Project Organization
