@@ -170,11 +170,9 @@ visit **~/PBPM/analysis**.
 
 ## How to run this script
 
-The scripts PBPM.py, and main.py are written in Python 3, 
-which uses up-to-date libraries for this version as well.
- 
-To run the main module in a linux environment, simply call the script and the
-arguments it needs:
+The scripts PBPM.py, and main.py are written in Python 3, which uses up-to-date libraries 
+for this version as well. To run the main module in a Linux environment, 
+simply open a new terminal and call the script together with the arguments it needs:
 
 ```python3 main.py inputFile pathwaysDirectory -pathway -gene -patient -mutation -pli_gt -af_lt -pph2 -mpc_gt adj -matrix -r -append```
 
