@@ -153,7 +153,7 @@ Thus, it will not be necessary to explicitly set the -r parameter to 'yes', unle
 
 A sample of the file required by the first argument (the input file containing mutations and 
 patients) can be found in the folder **data/raw** of the repo. The name of the file is
- **original-mutations-file.txt**.
+ **original-mutations-file.txt**. Also, a file called **
 
 Similarly, in the [**data/raw/pathways**] folder, a sample of a directory containing pathways 
 can be found, which is a mandatory parameter for _pathwaysDirectory_ entry. 
@@ -169,13 +169,13 @@ visit **~/PBPM/analysis**.
 
 ## How to run this script
 
-The scripts PBPM.py, and main-PBPM.py are written in Python 3, 
+The scripts PBPM.py, and main.py are written in Python 3, 
 which uses up-to-date libraries for this version as well.
  
 To run the main module in a linux environment, simply call the script and the
 arguments it needs:
 
-```python3 main-PBPM.py inputFile pathwaysDirectory -pathway -gene -patient -mutation -pli_gt -af_lt -pph2 -mpc_gt adj -matrix -r -append```
+```python3 main.py inputFile pathwaysDirectory -pathway -gene -patient -mutation -pli_gt -af_lt -pph2 -mpc_gt adj -matrix -r -append```
 
 For any additional information, contact me: 
 
