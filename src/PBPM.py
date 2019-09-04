@@ -839,6 +839,24 @@ def download_pbpm(setting, df, info, b_csv_name, n_csv_name, nn_csv_name):
 
 def append_to_pbpm(filepath, pathways, setting, df_to_norm):
 
+    """ Extracts PBP matrices of three types: binary, numerical and normalized, taking as input, an appended
+    intermediate matrix.
+            -m b or --matrix b: binary matrix
+            -m n or --matrix n: numerical matrix
+            -m nn or --matrix nn: normalized matrix
+    If the parameter -m is not set, it takes the argument 'b' by default.
+
+    Parameters:
+        filepath (str): where the appended intermediate input matrix is located.
+        pathways pandas dataframe): which contains processes pathways information.
+        setting (str): specifies the type of matrix to extract.
+        df_to_norm (pandas dataframe): input data for the normalization.
+
+    Returns:
+        create_pbpm(setting, df, df_to_norm): pandas dataframe.
+
+    """
+
     # Read csv coming from int_matrix_appended_path
     # Process appended matrix to create a pbpm again!
     df = pd.read_csv(filepath, comment='#')
