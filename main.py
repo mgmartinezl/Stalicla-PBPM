@@ -61,31 +61,31 @@ def main():
     joint_data = join_input_data(patients, pathways)
 
     # Restrict analysis to specific patients
-    data = analyze_patients(joint_data, args['patient'])
+    data = filter_patients(joint_data, args['patient'])
 
     # Restrict analysis to specific genes
-    data = analyze_genes(data, args['gene'])
+    data = filter_genes(data, args['gene'])
 
     # Restrict analysis to specific consequences
-    data = analyze_csqs(data, args['csq'])
+    data = filter_consequences(data, args['csq'])
 
     # Restrict analysis to specific pLI
-    data = analyze_pli(data, args['pli_gt'])
+    data = filter_pli(data, args['pli_gt'])
 
     # Restrict analysis to specific pRecessive
-    data = analyze_precessive(data, args['pr_g'])
+    data = filter_precessive(data, args['pr_g'])
 
     # Restrict analysis to specific max_control_AF
-    data = analyze_max_control_af(data, args['af_lt'])
+    data = filter_af(data, args['af_lt'])
 
     # Restrict analysis to specific values of pph2 predictions
-    data = analyze_pph2_prediction(data, args['pph2'])
+    data = filter_polyphen(data, args['pph2'])
 
     # Restrict analysis to specific values of MPC
-    data = analyze_mpc(data, args['mpc_gt'])
+    data = filter_mpc(data, args['mpc_gt'])
 
     # Restrict analysis to specific values of adjusted consequence
-    data = analyze_adj_consequence(data, args['adj_csq'])
+    data = filter_adj_consequence(data, args['adj_csq'])
 
     # Compute desired PBPM matrix type and download a copy of it
     pbpm = create_pbpm(args['matrix'], data, genes_to_norm)
