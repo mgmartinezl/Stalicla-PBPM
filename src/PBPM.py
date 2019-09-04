@@ -111,6 +111,7 @@ def edit_lines(filepath, lines, folderpath):
                 f.write(header)
                 f.writelines(data)
             os.rename(temp, file_name)
+            return file_name
     elif filepath == '':
         pass
 
@@ -272,7 +273,7 @@ def create_arg_parser():
                         dest='append',
                         help='Set this parameter for adding a txt or csv filepath to which base matrix '
                              'results want to be appended.',
-                        default='')
+                        default=None)
     parser.add_argument('--path',
                         help='Specify the path where the final PBPM will be saved',
                         default=None)
@@ -836,6 +837,39 @@ def download_pbpm(setting, df, info, b_csv_name, n_csv_name, nn_csv_name):
             df.to_csv(file, index=False)
 
 
+def append_to_pbpm(filepath, pathways, setting, df_to_norm):
+
+    # Read csv coming from int_matrix_appended_path
+    # Process appended matrix to create a pbpm again!
+    df = pd.read_csv(filepath, comment='#')
+    df = df[['child_id', 'HGNC_symbol', 'consequence']]
+    df = df.drop_duplicates(subset=['child_id', 'HGNC_symbol'])
+
+    # Joining data: patients and pathways
+    df = join_input_data(df, pathways)
+
+    if setting == 'b':
+        # Computing binary PBPM
+        df = pd.concat([df.drop('Pathway', 1), pd.get_dummies(df.Pathway).mul(1)], axis=1)
+        df = pd.DataFrame(df.to_records())
+        df = df.groupby(['child_id']).max()
+        df = df.sort_values(by='child_id', ascending=True)
+        df = pd.DataFrame(df.to_records())
+        return df
+    elif setting == 'n':
+        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
+        df = pd.DataFrame(pivot.to_records())
+        df = df.sort_values(by='child_id', ascending=True)
+        return df
+    elif setting == 'nn':
+        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
+        df = pd.DataFrame(pivot.to_records())
+        p = list(df.columns.values)[1:]
+        df_to_norm = df_to_norm[df_to_norm['Pathway'].isin(p)]
+        df = df.set_index('child_id').div(df_to_norm.set_index('Pathway')['HGNC_symbol']).reset_index()
+        return df
+
+
 def logging_info(args, output_logs, output_pbpm, output_im):
 
     """ Records an INFO type log.
@@ -851,8 +885,8 @@ def logging_info(args, output_logs, output_pbpm, output_im):
 
     """
 
-    is_base = "Intermediate matrix downloaded at: {}".format(output_im) if args['im'] == True else ''
-    is_append = "Append filepath for intermediate matrix (if provided): {}".format(args['append']) if args['append'] else ''
+    is_base = "Intermediate matrix downloaded at: {}".format(output_im) if args['im'] is True else ''
+    is_append = "Append filepath for intermediate matrix (if provided): {}".format(args['append']) if args['append'] is not None else ''
 
     log_filename = os.path.join(output_logs, 'logINFO_{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
     logging.basicConfig(filename=log_filename, level=logging.INFO)
