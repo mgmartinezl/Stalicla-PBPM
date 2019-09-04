@@ -94,22 +94,22 @@ all available patients will be extracted by default.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
 
-* **-mutation:** optional argument to extract only specific mutations. If no setting is provided,
+* **-csq:** optional argument to extract only specific consequences. If no setting is provided,
 all available consequences will be processed by default.
     - Example: it will run only for mutations of type 'missense_variant' \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mutation missense_variant```
+    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -csq missense_variant```
    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one mutation, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one consequence, you can specify one of the following: \
 \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of mutations separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation missense_variant,Intron ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired mutations to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-mutation ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-csq missense_variant,Intron ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired consequences to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-csq ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
 
 * **-pli_gt:** optional argument to filter records with values greater than or equal to a specified pLI threshold.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pli_gt 0.6 ```
    
-* **-af_lt:** optional argument to filter records with values less than a max_control_AF threshold.
+* **-af_lt:** optional argument to filter records with values less or equal than a max_control_AF threshold.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -af_lt 0.3 ```
 
 * **-pph2:** optional argument to filter records for qualifiers of pph2 predictions. Available options for this
@@ -123,9 +123,9 @@ quotes as they hold blank spaces.
 * **-mpc_gt:** optional argument to filter records with values greater than or equal to a specified MPC threshold.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mpc_gt 0.7 ```
 
-* **-adj:** optional argument to filter records by specific value(s) of adjusted consequence. Available options for this
+* **-adj_csq:** optional argument to filter records by specific value(s) of adjusted consequence. Available options for this
 parameter include: *PTV*, *Missense3*, *Missense*, etc. 
-    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -adj PTV ```
+    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -adj_csq PTV ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To filter more than one pph2 qualifier, you must separate their labels with comma: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -adj Missense3,Missense ```
@@ -146,7 +146,10 @@ By default, this parameter is set to no (n).
 * **-append:** when this parameter is specified, the base matrix of the current session will be appended to the file provided. 
 Thus, it will not be necessary to explicitly set the -r parameter to 'yes', unless a separate copy of the base matrix is desired.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -append path-to-my-historic-file.txt ```
-  
+
+* **-path:** specifies the path where the user wants to store the final PBPM generated.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -path location-where-I-want-to-save-PBPM ```
+
 
 **Note:** help() is available for all the parameters via the command line. 
 
