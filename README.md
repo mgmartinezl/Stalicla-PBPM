@@ -136,8 +136,8 @@ If no setting is provided, all available consequences will be considered.
     ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -csq missense_variant```
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-For more than one consequence, you can specify one of the following: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of mutations separated by comma (without spaces):  \
+To filter by more than one consequence, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of consequences separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-csq missense_variant,Intron ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired consequences to filter written in the first column: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-csq ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
@@ -164,7 +164,7 @@ quotes as they hold blank spaces.
     - Example:  ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-To filter more than one PolyPhen qualifier, you must separate their labels with comma and without spaces while keeping the quotes: \
+To filter by more than one PolyPhen qualifier, you must separate their labels with comma and without spaces while keeping the quotes: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -pph2 "probably damaging,possibly damaging" ```
 
 * **[-mpc MPC, --mpc_gt MPC]:** 
@@ -178,7 +178,7 @@ Available options for this parameter include: *PTV*, *Missense3*, *Missense*, et
     - Example:  ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -adj_csq PTV ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-To filter more than one pph2 qualifier, you must separate their labels with comma: \
+To filter by more than one adjusted consequence, you must separate their labels with comma: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -adj_csq Missense3,Missense ```
 
 * **[-m PBPM-TYPE, --matrix PBPM-TYPE]:** 
@@ -203,11 +203,13 @@ console, it will automatically interpreted as True.
 * **[-a APPEND-FILE, --append APPEND-FILE]:** 
 optional argument to append the intermediate matrix of the current session to the file provided,
 which is expected to be another intermediate matrix. Appended information will be used to
-compute the final PBPM. 
+compute the final PBPM. The appended file will be overwritten and it will contain the commands used to generate all the information of the intermediate matrix.
+
     - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// -a path-to-my-historic-file.txt ```
 
 * **[--path PATH-RESULTS]:** 
 optional argument to specify the path where the user wants to store the final PBPM generated.
+When not specified, the final PBPMs will be stored in the **analysis** folder of this project.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// --path location-where-I-want-to-save-PBPM ```
 
 **Note:** help() is available for all the parameters via the command line by running
