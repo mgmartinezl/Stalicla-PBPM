@@ -211,7 +211,7 @@ optional argument to specify the path where the user wants to store the final PB
     - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// --path location-where-I-want-to-save-PBPM ```
 
 **Note:** help() is available for all the parameters via the command line by running
-```python main.py --help``` :simple_smile:
+```python main.py --help``` :smile:
 
 
 ***
