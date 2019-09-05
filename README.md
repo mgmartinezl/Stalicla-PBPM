@@ -65,7 +65,7 @@ it accepts:
 &nbsp;&nbsp;&nbsp;```[-m PBPM-TYPE, --matrix PBPM-TYPE]``` \
 &nbsp;&nbsp;&nbsp;```[-im True/False(default), --intermediate_matrix True/False(default)]``` \
 &nbsp;&nbsp;&nbsp;```[-a APPEND-FILE, --append APPEND-FILE]``` \
-&nbsp;&nbsp;&nbsp;```[--path PATH-RESULTS]``` \
+&nbsp;&nbsp;&nbsp;```[--path PATH-RESULTS]``` 
 
 
 Positional arguments
