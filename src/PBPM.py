@@ -837,23 +837,15 @@ def download_pbpm(setting, df, info, b_csv_name, n_csv_name, nn_csv_name):
             df.to_csv(file, index=False)
 
 
-def append_to_pbpm(filepath, pathways, setting, df_to_norm):
+def format_appended_file(filepath):
 
-    """ Extracts PBP matrices of three types: binary, numerical and normalized, taking as input, an appended
-    intermediate matrix.
-            -m b or --matrix b: binary matrix
-            -m n or --matrix n: numerical matrix
-            -m nn or --matrix nn: normalized matrix
-    If the parameter -m is not set, it takes the argument 'b' by default.
+    """ Formats an appended-like intermediate matrix to generate a PBPM from it.
 
     Parameters:
         filepath (str): where the appended intermediate input matrix is located.
-        pathways pandas dataframe): which contains processes pathways information.
-        setting (str): specifies the type of matrix to extract.
-        df_to_norm (pandas dataframe): input data for the normalization.
 
     Returns:
-        create_pbpm(setting, df, df_to_norm): pandas dataframe.
+        format_appended_file(filepath): pandas dataframe.
 
     """
 
@@ -862,30 +854,7 @@ def append_to_pbpm(filepath, pathways, setting, df_to_norm):
     df = pd.read_csv(filepath, comment='#')
     df = df[['child_id', 'HGNC_symbol', 'consequence']]
     df = df.drop_duplicates(subset=['child_id', 'HGNC_symbol'])
-
-    # Joining data: patients and pathways
-    df = join_input_data(df, pathways)
-
-    if setting == 'b':
-        # Computing binary PBPM
-        df = pd.concat([df.drop('Pathway', 1), pd.get_dummies(df.Pathway).mul(1)], axis=1)
-        df = pd.DataFrame(df.to_records())
-        df = df.groupby(['child_id']).max()
-        df = df.sort_values(by='child_id', ascending=True)
-        df = pd.DataFrame(df.to_records())
-        return df
-    elif setting == 'n':
-        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
-        df = pd.DataFrame(pivot.to_records())
-        df = df.sort_values(by='child_id', ascending=True)
-        return df
-    elif setting == 'nn':
-        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
-        df = pd.DataFrame(pivot.to_records())
-        p = list(df.columns.values)[1:]
-        df_to_norm = df_to_norm[df_to_norm['Pathway'].isin(p)]
-        df = df.set_index('child_id').div(df_to_norm.set_index('Pathway')['HGNC_symbol']).reset_index()
-        return df
+    return df
 
 
 def logging_info(args, output_logs, output_pbpm, output_im):

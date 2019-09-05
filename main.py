@@ -133,7 +133,8 @@ def main():
         # ------ Generate new PBPM appended matrix ------ #
 
         # Recompute PBPM and download it
-        appended_pbpm = append_to_pbpm(int_matrix_appended_path, pathways, args['matrix'], genes_to_norm)
+        appended_pbpm = create_pbpm(args['matrix'], join_input_data(format_appended_file(int_matrix_appended_path), pathways),
+                                    genes_to_norm)
         download_pbpm(args['matrix'], appended_pbpm, command, ap_b_csv_name, ap_n_csv_name, ap_nn_csv_name)
 
     # ------ Logging of execution ------ #
