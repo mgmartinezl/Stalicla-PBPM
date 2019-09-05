@@ -210,8 +210,8 @@ compute the final PBPM.
 optional argument to specify the path where the user wants to store the final PBPM generated.
     - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// --path location-where-I-want-to-save-PBPM ```
 
-**Note:** :smile: help() is available for all the parameters via the command line by running
-```python main.py --help```
+**Note:** help() is available for all the parameters via the command line by running
+```python main.py --help``` :simple_smile:
 
 
 ***
