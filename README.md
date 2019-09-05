@@ -216,7 +216,7 @@ optional argument to specify the path where the user wants to store the final PB
 
 ***
 <p><small>
-For any additional information, contact me: 
+For any additional information, contact me :bowtie: 
 
 *Gabriela Martinez* <br>
 *airamgabriela17@gmail.com*
