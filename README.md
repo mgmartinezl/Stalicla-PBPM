@@ -84,7 +84,7 @@ contains the pathway files with gene annotations.
 - Also, keep the names of the patients and mutations file as follows: \
 ```Chr, Position, Ref, Alt, Type, Gene, consequence, AA_Change, BP_Change, child_id, HGNC_symbol, HGNC_mapping, constraint_score, pLI, pRecessive, max_control_AF, pph2_prediction, MPC, adjusted_consequence```
 - The directory containing the pathways can contain multiple files. However, only those
-ending with '_with_gene_annotations' will be considered for processing. 
+ending with *'_with_gene_annotations'* will be considered for processing. 
 
 Optional arguments
 ------------
@@ -98,9 +98,9 @@ If no setting is provided, all available pathways will be considered.
     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 To filter by more than one pathway, you can specify one of the following: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - A subset of pathways separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of pathways separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-p R-HSA-69620,0051705 ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-p ~/PBPM/data/raw/filters/my-file-containing-pathways.txt```
 
 * **[-g GENE, --gene GENE, --genes GENE]:** 
@@ -111,11 +111,10 @@ If no setting is provided, all available genes will be considered.
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 To filter by more than one gene, you can specify one of the following: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    - A subset of genes separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g CTR9,NOCL2 ``` \
-    - A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of genes separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-g CTR9,NOCL2 ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-g ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
 
 * **[-id PATIENT, --patient PATIENT, --patients PATIENT]:** 
 optional argument to filter specific patient IDs. 
@@ -125,50 +124,69 @@ If no setting is provided, all available patients will be considered.
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 For more than one patient ID, you can specify one of the following: \
-\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of patients separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-id Patient_X,Patient_Y ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-id ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of patients separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-id Patient_X,Patient_Y ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-id ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
 
-* **-csq:** optional argument to extract only specific consequences. If no setting is provided,
-all available consequences will be processed by default.
-    - Example: it will run only for mutations of type 'missense_variant' \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -csq missense_variant```
+* **[-csq CSQ, --consequence CSQ, --consequences CSQ]:** 
+optional argument to filter specific consequences. 
+If no setting is provided, all available consequences will be considered.
+    - Example: protocol will filter data for consequences of type 'missense_variant' \
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -csq missense_variant```
    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one consequence, you can specify one of the following: \
-\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of mutations separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-csq missense_variant,Intron ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired consequences to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-csq ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+For more than one consequence, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of mutations separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-csq missense_variant,Intron ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired consequences to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-csq ~/PBPM/data/raw/filters/my-file-containing-mutations.txt``` 
 
-* **-pli_gt:** optional argument to filter records with values greater than or equal to a specified pLI threshold.
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pli_gt 0.6 ```
-   
-* **-af_lt:** optional argument to filter records with values less or equal than a max_control_AF threshold.
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -af_lt 0.3 ```
+* **[-pli PLI, --pli_gt PLI]:** 
+optional argument to filter records with values greater than or equal to a specified 
+pLI threshold.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -pli 0.6 ```
 
-* **-pph2:** optional argument to filter records for qualifiers of pph2 predictions. Available options for this
-parameter are: *benign*, *possibly damaging*, and *probably damaging*. Note that qualifiers must be enclosed with 
+* **[-pr pRECESSIVE, --pr_g pRECESSIVE]:**
+optional argument to filter records with values greater than a specified 
+pRecessive threshold.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -pr 0.6 ```
+
+* **[-af MAX_AF, --af_lt MAX_AF]:** 
+optional argument to filter records with values less or equal than a max_control_AF threshold.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -af 0.3 ```
+
+* **[-pph2 PPH2, --polyphen PPH2, --polyphen2 PPH2]:** 
+optional argument to filter records with specific PolyPhen predictions. 
+Available options for this parameter are: *benign*, *possibly damaging*, 
+and *probably damaging*. Note that qualifiers must be enclosed with 
 quotes as they hold blank spaces.
-    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
+    - Example:  ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To filter more than one pph2 qualifier, you must separate their labels with comma and without spaces while keeping the quotes: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To filter more than one PolyPhen qualifier, you must separate their labels with comma 
+and without spaces while keeping the quotes: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -pph2 "probably damaging,possibly damaging" ```
 
-* **-mpc_gt:** optional argument to filter records with values greater than or equal to a specified MPC threshold.
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -mpc_gt 0.7 ```
+* **[-mpc MPC, --mpc_gt MPC]:** 
+optional argument to filter records with values greater than or equal to a specified 
+MPC threshold.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -mpc 0.7 ```
 
-* **-adj_csq:** optional argument to filter records by specific value(s) of adjusted consequence. Available options for this
-parameter include: *PTV*, *Missense3*, *Missense*, etc. 
-    - Example:  ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -adj_csq PTV ```
+* **[-adj_csq ADJ-CSQ, --adjusted_consequence ADJ-CSQ, --adjusted_consequences ADJ-CSQ]:** 
+optional argument to filter records by specific adjusted consequence labels. 
+Available options for this parameter include: *PTV*, *Missense3*, *Missense*, etc. 
+    - Example:  ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -adj_csq PTV ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To filter more than one pph2 qualifier, you must separate their labels with comma: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -adj Missense3,Missense ```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To filter more than one pph2 qualifier, you must separate their labels with comma: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -adj_csq Missense3,Missense ```
 
-* **-matrix:** optional argument to select the type of matrix to be extracted. It is only possible to generate one matrix at a time.
-Available options are: *binary(b)*, *numerical(n)*, *normalized(nn)*. If not set, the default value of this argument will return a binary matrix.
+* **[-m PBPM-TYPE, --matrix PBPM-TYPE]:** 
+optional argument to select the type of matrix to be extracted. 
+It is only possible to generate one matrix at a time.
+Available options are: *binary(b)*, *numerical(n)*, *normalized(nn)*. 
+If not set, the default value of this argument will return a binary matrix.
     - Example to explicitly generate a binary matrix : \
      ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix b ```
     - Example to generate a numerical matrix (not normalized): \
