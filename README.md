@@ -77,53 +77,60 @@ containing the patients and their mutations.
 * **pathwaysDirectory:**  it is mandatory to specify the absolute path to the directory that 
 contains the pathway files with gene annotations.
     - Example: \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/```
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/```
 
 **Important notes:** 
 - Be aware of respecting the order of the positional arguments.
 - Also, keep the names of the patients and mutations file as follows: \
 ```Chr, Position, Ref, Alt, Type, Gene, consequence, AA_Change, BP_Change, child_id, HGNC_symbol, HGNC_mapping, constraint_score, pLI, pRecessive, max_control_AF, pph2_prediction, MPC, adjusted_consequence```
+- The directory containing the pathways can contain multiple files. However, only those
+ending with '_with_gene_annotations' will be considered for processing. 
 
-
-#### Optional parameters
-
-* **-pathway:** optional argument to extract only specific pathways. If no setting is provided,
-all available pathways will be extracted by default.
-    - Example 1: it will run only for pathway R-HSA-69620 \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -pathway R-HSA-69620 ```
-    - Example 2: it will run for all possible pathways \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ ```    
+Optional arguments
+------------
+* **[-p PATHWAY, --pathway PATHWAY, --pathways PATHWAY]:**
+optional argument to filter specific pathways. 
+If no setting is provided, all available pathways will be considered.
+    - Example 1: protocol will filter data for pathway R-HSA-69620 \
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -p R-HSA-69620 ```
+    - Example 2: protocol will not filter data by any pathway \
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ ```    
     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one pathway, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To filter by more than one pathway, you can specify one of the following: \
 \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of pathways separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-pathway R-HSA-69620,0051705 ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of pathways separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-p R-HSA-69620,0051705 ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-pathway ~/PBPM/data/raw/filters/my-file-containing-pathways.txt```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-p ~/PBPM/data/raw/filters/my-file-containing-pathways.txt```
 
-* **-gene:** optional argument to extract only specific genes. If no setting is provided,
-all available genes will be extracted by default.
-    - Example: it will run only for gene CTR9 \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -gene CTR9 ```
+* **[-g GENE, --gene GENE, --genes GENE]:** 
+optional argument to filter specific genes. 
+If no setting is provided, all available genes will be considered.
+    - Example: protocol will filter data for gene CTR9 \
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -g CTR9 ```
    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one gene, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+To filter by more than one gene, you can specify one of the following: \
 \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of genes separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-gene CTR9,NOCL2 ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of genes separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g CTR9,NOCL2 ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-gene ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
 
-* **-patient:** optional argument to extract only specific patient IDs. If no setting is provided,
-all available patients will be extracted by default.
-    - Example: it will run only for patient with ID 1 \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -patient Patient_1 ```
+* **[-id PATIENT, --patient PATIENT, --patients PATIENT]:** 
+optional argument to filter specific patient IDs. 
+If no setting is provided, all available patients will be considered.
+    - Example: protocol will filter data for patient with ID 1 \
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -id Patient_1 ```
    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more than one patient ID, you can specify one of the following: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+For more than one patient ID, you can specify one of the following: \
 \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Subset of patients separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient Patient_X,Patient_Y ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of patients separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-id Patient_X,Patient_Y ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-patient ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-id ~/PBPM/data/raw/filters/my-file-containing-patients.txt``` 
 
 * **-csq:** optional argument to extract only specific consequences. If no setting is provided,
 all available consequences will be processed by default.
