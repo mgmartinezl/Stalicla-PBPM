@@ -123,7 +123,7 @@ If no setting is provided, all available patients will be considered.
     ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -id Patient_1 ```
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-For more than one patient ID, you can specify one of the following: \
+To filter by more than one patient ID, you can specify one of the following: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    1. A subset of patients separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-id Patient_X,Patient_Y ``` \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    2. A txt tab delimited file with no headers and the desired patient IDs to filter written in the first column: \
