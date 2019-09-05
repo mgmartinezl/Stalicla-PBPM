@@ -194,7 +194,8 @@ def create_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('inputFile', help='(Mandatory) path to the input file containing patient mutations file.')
     parser.add_argument('pathwaysDirectory', help='(Mandatory) path to the directory that contains the pathway files.')
-    parser.add_argument('--pathway',
+    parser.add_argument('-p',
+                        '--pathway',
                         '--pathways',
                         dest='pathway',
                         help='Pathway(s) to be extracted (default: all). A single pathway, a subset of pathways '
@@ -221,18 +222,18 @@ def create_arg_parser():
                         help='Consequences(s) to be extracted (default: all). A single consequence, a subset '
                              'of consequences separated by comma without spaces or a filepath can be provided.',
                         default=None)
-    parser.add_argument('-pli_gt',
-                        '--pli',
+    parser.add_argument('-pli',
+                        '--pli_gt',
                         dest='pli_gt',
                         help='Filters records with values greater than or equal to a pLI threshold',
                         default=None)
-    parser.add_argument('-pr_g',
-                        '--pr',
+    parser.add_argument('-pr',
+                        '--pr_g',
                         dest='pr_g',
                         help='Filters records with values greater than a pRecessive threshold',
                         default=None)
-    parser.add_argument('-af_lt',
-                        '--af',
+    parser.add_argument('-af',
+                        '--af_lt',
                         dest='af_lt',
                         help='Filters records with values less or equal than a max_control_AF threshold',
                         default=None)
@@ -243,8 +244,8 @@ def create_arg_parser():
                         help='Filters records for qualifiers of pph2 predictions. Available options: "benign", '
                              '"possibly damaging", "probably damaging".',
                         default=None)
-    parser.add_argument('-mpc_gt',
-                        '--mpc',
+    parser.add_argument('-mpc',
+                        '--mpc_gt',
                         dest='mpc_gt',
                         help='Filters records with values greater than or equal to an MPC threshold',
                         default=None)
