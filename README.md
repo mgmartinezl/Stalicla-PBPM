@@ -98,10 +98,9 @@ If no setting is provided, all available pathways will be considered.
     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 To filter by more than one pathway, you can specify one of the following: \
-\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of pathways separated by comma (without spaces):  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-p R-HSA-69620,0051705 ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - A subset of pathways separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ```-p R-HSA-69620,0051705 ``` \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - A txt tab delimited file with no headers and the desired pathways to filter written in the first column: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-p ~/PBPM/data/raw/filters/my-file-containing-pathways.txt```
 
 * **[-g GENE, --gene GENE, --genes GENE]:** 
@@ -112,10 +111,10 @@ If no setting is provided, all available genes will be considered.
    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 To filter by more than one gene, you can specify one of the following: \
-\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A subset of genes separated by comma (without spaces):  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    - A subset of genes separated by comma (without spaces):  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g CTR9,NOCL2 ``` \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
+    - A txt tab delimited file with no headers and the desired genes to filter written in the first column: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```-g ~/PBPM/data/raw/filters/my-file-containing-genes.txt``` 
 
 * **[-id PATIENT, --patient PATIENT, --patients PATIENT]:** 
