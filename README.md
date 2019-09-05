@@ -164,8 +164,7 @@ quotes as they hold blank spaces.
     - Example:  ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -pph2 "possibly damaging" ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-To filter more than one PolyPhen qualifier, you must separate their labels with comma 
-and without spaces while keeping the quotes: \
+To filter more than one PolyPhen qualifier, you must separate their labels with comma and without spaces while keeping the quotes: \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ``` -pph2 "probably damaging,possibly damaging" ```
 
 * **[-mpc MPC, --mpc_gt MPC]:** 
@@ -188,49 +187,40 @@ It is only possible to generate one matrix at a time.
 Available options are: *binary(b)*, *numerical(n)*, *normalized(nn)*. 
 If not set, the default value of this argument will return a binary matrix.
     - Example to explicitly generate a binary matrix : \
-     ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix b ```
+     ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -m b ```
     - Example to generate a numerical matrix (not normalized): \
-      ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix n ```
+      ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -m n ```
     - Example to generate a normalized numerical matrix: \
-     ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -matrix nn ```
+     ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -m nn ```
 
-* **-r:** set this parameter to yes (y) to download a copy of the base matrix (raw data) generated to build the PBP matrix. 
-By default, this parameter is set to no (n).
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways/ -r y ```
+* **[-im True/False(default), --intermediate_matrix True/False(default)]:** 
+optional boolean argument by default set to False. When set to True, a copy of the 
+intermediate matrix to generate the PBPM is downloaded. By specifying the parameter in the
+console, it will automatically interpreted as True.
+    - Example 1 to download intermediate matrix: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ -im ```
+    - Example 2 to download intermediate matrix: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways/ --intermediate_matrix ```
 
-* **-append:** when this parameter is specified, the base matrix of the current session will be appended to the file provided. 
-Thus, it will not be necessary to explicitly set the -r parameter to 'yes', unless a separate copy of the base matrix is desired.
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -append path-to-my-historic-file.txt ```
+* **[-a APPEND-FILE, --append APPEND-FILE]:** 
+optional argument to append the intermediate matrix of the current session to the file provided,
+which is expected to be another intermediate matrix. Appended information will be used to
+compute the final PBPM. 
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// -a path-to-my-historic-file.txt ```
 
-* **-path:** specifies the path where the user wants to store the final PBPM generated.
-    - Example: ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt ~/PBPM/data/raw/pathways// -path location-where-I-want-to-save-PBPM ```
+* **[--path PATH-RESULTS]:** 
+optional argument to specify the path where the user wants to store the final PBPM generated.
+    - Example: ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt ~/PBPM/data/raw/pathways// --path location-where-I-want-to-save-PBPM ```
+
+**Note:** help() is available for all the parameters via the command line by running
+```python main.py --help```
 
 
-**Note:** help() is available for all the parameters via the command line. 
-
-### Input files
-
-A sample of the file required by the first argument (the input file containing mutations and 
-patients) can be found in the folder **data/raw** of the repo. The name of the file is
- **original-mutations-file.txt**. Also, a file called **
-
-Similarly, in the [**data/raw/pathways**] folder, a sample of a directory containing pathways 
-can be found, which is a mandatory parameter for _pathwaysDirectory_ entry. 
-
-Additional example text files to filter can be found in the folder **data/raw/filters**.
-
-### Running tests
-
-In the folder [reports](https://github.com/mgmartinezl/Stalicla-PBPM/tree/master/reports), 
-three different running examples can be found. Each of them generates a log containing the 
-parameters set to run the program, as well as the desired output. To see the logs please 
-visit **~/PBPM/analysis**.
-
+***
+<p><small>
 For any additional information, contact me: 
 
 *Gabriela Martinez* <br>
 *airamgabriela17@gmail.com*
-
---------
+</small></p>
+***
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
