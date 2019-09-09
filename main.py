@@ -37,10 +37,7 @@ def main():
 
     # ------ Filenames and parameters ------ #
 
-    csv_name = os.path.join(dir_int_folder_output, 'base-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
-    b_csv_name = os.path.join(dir_pbpm, 'binary-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
-    n_csv_name = os.path.join(dir_pbpm, 'numerical-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
-    nn_csv_name = os.path.join(dir_pbpm, 'normalized-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
+    csv_name = os.path.join(dir_int_folder_output, 'base-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S")))
 
     command = "# Script generated with the following parameters --- " + \
               " inputFile: " + args['inputFile'] + \
@@ -124,13 +121,10 @@ def main():
 
         # Combine matrices and download
         pbpm = combine_matrices(pbpm_1, pbpm_2)
-        download_pbpm(args['matrix'], pbpm, command, b_csv_name, n_csv_name, nn_csv_name)
+        print(pbpm_name(args['matrix']))
+        download_pbpm(pbpm, command, os.path.join(dir_pbpm, pbpm_name(args['matrix'])))
 
     else:
-
-        ap_b_csv_name = os.path.join(dir_pbpm, 'appended-binary-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
-        ap_n_csv_name = os.path.join(dir_pbpm, 'appended-numerical-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
-        ap_nn_csv_name = os.path.join(dir_pbpm, 'appended-normalized-matrix-{}.csv'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
 
         # ------ Generate intermediate appended matrix ------ #
 
@@ -152,7 +146,7 @@ def main():
 
         # Combine matrices and download
         appended_pbpm = combine_matrices(pbpm_1, appended_pbpm)
-        download_pbpm(args['matrix'], appended_pbpm, command, ap_b_csv_name, ap_n_csv_name, ap_nn_csv_name)
+        download_pbpm(appended_pbpm, command, os.path.join(dir_pbpm, pbpm_name(args['matrix'])))
 
     # ------ Logging of execution ------ #
 

@@ -15,8 +15,10 @@ import argparse
 import os
 from pathlib import Path
 import logging
-from datetime import datetime
+import datetime
 import getpass
+
+local_time = datetime.datetime.now()
 
 
 # ------ Auxiliary functions ------
@@ -869,35 +871,23 @@ def create_pbpm(setting, df, df_to_norm):
         return final_matrix
 
 
-def download_pbpm(setting, df, info, b_csv_name, n_csv_name, nn_csv_name):
+def download_pbpm(df, info, name):
 
     """ Downloads a PBPM.
 
     Parameters:
-        setting (str): specifies the type of matrix to extract.
         df (pandas dataframe): data to be downloaded.
         info (str): the command line that triggered the creation of the dataframe to download.
-        b_csv_name (str): name of the csv generated for a binary PBPM.
-        n_csv_name (str): name of the csv generated for a numerical PBPM.
-        nn_csv_name (str): name of the csv generated for a normalized PBPM.
+        name (str): name of the csv generated for the PBPM.
 
     Returns:
-        download_pbpm(setting, df, info, folderpath):  csv file.
+        download_pbpm(df, info, pbpm_name):  csv file.
 
     """
 
-    if setting == 'b':
-        with open(b_csv_name, 'w') as file:
-            file.write(info + '\n')
-            df.to_csv(file, index=False)
-    elif setting == 'n':
-        with open(n_csv_name, 'a') as file:
-            file.write(info + '\n')
-            df.to_csv(file, index=False)
-    elif setting == 'nn':
-        with open(nn_csv_name, 'a') as file:
-            file.write(info + '\n')
-            df.to_csv(file, index=False)
+    with open(name, 'w') as file:
+        file.write(info + '\n')
+        df.to_csv(file, index=False)
 
 
 def format_appended_file(filepath):
@@ -923,11 +913,21 @@ def format_appended_file(filepath):
 
 def log_name(setting):
     if setting == 'b':
-        return 'binary-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+        return 'binary-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
     elif setting == 'n':
-        return 'numerical-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+        return 'numerical-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
     elif setting == 'nn':
-        return 'normalized-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+        return 'normalized-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+
+
+def pbpm_name(setting):
+
+    if setting == 'b':
+        return 'binary-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+    elif setting == 'n':
+        return 'numerical-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+    elif setting == 'nn':
+        return 'normalized-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
 
 
 def logging_info(args, log_filename, output_pbpm, output_im):
@@ -949,7 +949,7 @@ def logging_info(args, log_filename, output_pbpm, output_im):
     is_append = "Append filepath for intermediate matrix (if provided): {}".format(args['append']) if args['append'] is not None else ''
     logging.basicConfig(filename=log_filename, level=logging.INFO)
 
-    logging.info('PBPM protocol started generation on: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
+    logging.info('PBPM protocol started generation on: ' + local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
     logging.info('Process initiated by the user ' + getpass.getuser())
     logging.info('\n' + '\n' +
                  "Protocol successfully generated! " + '\n' + '\n'
