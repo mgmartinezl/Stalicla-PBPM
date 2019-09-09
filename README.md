@@ -2,7 +2,7 @@ PBPM
 ==============================
 
 A command line interface program to generate patient by disrupted pathways matrices (PBPMs). \
-*Last update: Sep 05, 2019*
+*Last update: Sep 09, 2019*
 
 Project Organization
 ------------
@@ -73,7 +73,7 @@ Positional arguments
 * **inputFile:** it is mandatory to specify the absolute path to the input file 
 containing the patients and their mutations.
     - Example: \
-    ```$ python3 main.py ~/PBPM/data/raw/original-mutations-file.txt```
+    ```$ python3 main.py ~/PBPM/data/raw/mutations-file.txt```
 * **pathwaysDirectory:**  it is mandatory to specify the absolute path to the directory that 
 contains the pathway files with gene annotations.
     - Example: \

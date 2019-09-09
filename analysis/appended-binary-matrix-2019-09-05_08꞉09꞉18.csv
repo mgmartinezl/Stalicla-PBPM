@@ -1,5 +1,0 @@
-# Script generated with the following parameters ---  inputFile: /home/gabi/Documents/CookieCutter/staliclaProjectTemplate/PBPM/data/raw/dummy-mutations-file.txt pathwaysDirectory: /home/gabi/Documents/CookieCutter/staliclaProjectTemplate/PBPM/data/raw/pathways--pathways: --genes: CTR9--patients: --consequences: --pli: --pr: --af: --polyphen: --mpc: --adjusted_consequences: --matrix: b--intermediate_matrix: no--append: /home/gabi/Documents/CookieCutter/staliclaProjectTemplate/PBPM/data/processed/to_append.csv--path: 
-child_id,pathway_29,pathway_32,pathway_33,pathway_35,pathway_40,pathway_49
-Patient_4011,1,1,1,1,1,1
-Patient_4148,1,1,1,1,1,1
-Patient_4178,1,1,1,1,1,1

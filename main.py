@@ -24,16 +24,16 @@ def main():
 
     default_folder_output = 'analysis'
     int_folder_output = 'data/processed'
-    folder_logs = 'analysis'
 
     dir_default_folder_output = os.path.join(directory, default_folder_output)
     dir_int_folder_output = os.path.join(directory, int_folder_output)
-    dir_logs = os.path.join(directory, folder_logs)
 
     if args['path'] is not None:
         dir_pbpm = args['path']
+        dir_logs = args['path']
     else:
         dir_pbpm = dir_default_folder_output
+        dir_logs = dir_default_folder_output
 
     # ------ Filenames and parameters ------ #
 
@@ -63,8 +63,8 @@ def main():
     # ------ Data processing and filtering ------ #
 
     # Input files reading, filtering and cleaning
-    patients = drop_na(read_mutations(args['inputFile']))
-    pathways = drop_na(read_pathways(args['pathwaysDirectory'], args['pathway']))
+    patients = format_df(drop_na(read_mutations(args['inputFile'])))
+    pathways = format_df(drop_na(read_pathways(args['pathwaysDirectory'], args['pathway'])))
     genes_to_norm = genes_to_normalize_pathways(pathways)
 
     # Joining data: patient mutations and pathways
@@ -72,6 +72,16 @@ def main():
 
     # Restrict analysis to specific patients
     data = filter_patients(joint_data, args['patient'])
+
+    # ------ Provisional PBPM ------ #
+
+    # Compute a first PBPM only filtered for specific patients or pathways
+    pbpm_1 = create_pbpm(args['matrix'], data, genes_to_norm)
+
+    # Make all columns null for the first PBPM
+    pbpm_1 = make_cols_null(pbpm_1)
+
+    # ------ Provisional PBPM filtering ------ #
 
     # Restrict analysis to specific genes
     data = filter_genes(data, args['gene'])
@@ -89,7 +99,7 @@ def main():
     data = filter_af(data, args['af_lt'])
 
     # Restrict analysis to specific values of pph2 predictions
-    data = filter_polyphen(data, args['pph2'])
+    data = filter_PolyPhen(data, args['pph2'])
 
     # Restrict analysis to specific values of MPC
     data = filter_mpc(data, args['mpc_gt'])
@@ -107,10 +117,13 @@ def main():
 
     if args['append'] is None:
 
-        # ------ Generate PBPM matrix ------ #
+        # ------ Generate final PBPM ------ #
 
-        # Compute desired PBPM matrix type and download a copy of it
-        pbpm = create_pbpm(args['matrix'], data, genes_to_norm)
+        # Compute a second PBPM only for filtering parameters
+        pbpm_2 = create_pbpm(args['matrix'], data, genes_to_norm)
+
+        # Combine matrices and download
+        pbpm = combine_matrices(pbpm_1, pbpm_2)
         download_pbpm(args['matrix'], pbpm, command, b_csv_name, n_csv_name, nn_csv_name)
 
     else:
@@ -128,18 +141,22 @@ def main():
         int_matrix_appended_to_return = return_file(int_matrix_appended)
 
         # Process appended matrix for end user and export a copy of it
-        int_matrix_appended_path = edit_lines(args['append'], int_matrix_appended_to_return, dir_int_folder_output)
+        int_matrix_appended_path = edit_and_export_file(args['append'], int_matrix_appended_to_return,
+                                                        dir_int_folder_output)
 
-        # ------ Generate new PBPM appended matrix ------ #
+        # ------ Generate final appended PBPM ------ #
 
-        # Recompute PBPM and download it
-        appended_pbpm = create_pbpm(args['matrix'], join_input_data(format_appended_file(int_matrix_appended_path), pathways),
-                                    genes_to_norm)
+        # Compute a second PBPM only for filtering parameters
+        appended_joint_data = join_input_data(format_appended_file(int_matrix_appended_path), pathways)
+        appended_pbpm = create_pbpm(args['matrix'], appended_joint_data, genes_to_norm)
+
+        # Combine matrices and download
+        appended_pbpm = combine_matrices(pbpm_1, appended_pbpm)
         download_pbpm(args['matrix'], appended_pbpm, command, ap_b_csv_name, ap_n_csv_name, ap_nn_csv_name)
 
     # ------ Logging of execution ------ #
 
-    logging_info(args, dir_logs, dir_pbpm, dir_int_folder_output)
+    logging_info(args, os.path.join(dir_logs, log_name(args['matrix'])), dir_pbpm, dir_int_folder_output)
 
 
 if __name__ == "__main__":

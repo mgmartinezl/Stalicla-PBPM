@@ -9,6 +9,7 @@ Author: Gabriela Martinez - airamgabriela17@gmail.com
 """
 
 import pandas as pd
+import numpy as np
 from time import gmtime, strftime
 import argparse
 import os
@@ -34,6 +35,67 @@ def create_directory(folderpath):
 
     if not os.path.exists(folderpath):
         os.makedirs(folderpath)
+
+
+def make_cols_null(df):
+
+    """ Converts dataframe 0 or 1 values to None type
+
+    Parameters:
+        df (pandas dataframe): with columns that contain 0s or 1s
+
+    Returns:
+        make_cols_null(df): pandas dataframe with None columns
+
+    """
+
+    df = df.replace(0, np.nan)
+    df = df.replace(1, np.nan)
+    return df
+
+
+def combine_matrices(df1, df2):
+
+    """ Combines two matrices to replace None values of df1 with non-None values of df2
+
+    Parameters:
+        df1 (pandas dataframe): with None column values
+        df2 (pandas dataframe): with 1s column values
+
+    Returns:
+        combine_matrices(df1, df2): pandas dataframe with 1s and 0s where None present
+
+    """
+
+    df = df2.combine_first(df1)
+    df = df.replace(np.nan, 0)
+    return df
+
+
+def format_df(df):
+
+    """ Function to change column names
+
+    Parameters:
+        df (pandas dataframe)
+
+    Returns:
+        format_df(df): pandas dataframe with columns names changed
+
+    """
+    df = df.rename(columns={"child_id": "Child_id",
+                            "Chr": "Chr",
+                            "Position": "Pos",
+                            "Ref": "Ref",
+                            "Alt": "Alt",
+                            "consequence": "Consequence",
+                            "HGNC_symbol": "HGNC_Symbol",
+                            "MPC": "MPC",
+                            "pph2_prediction": "PolyPhen_pred",
+                            "pph2_value": "PolyPhen_Value",
+                            "adjusted_consequence": "Adj_Consequence"
+                            })
+    return df
 
 
 def drop_na(df):
@@ -76,7 +138,7 @@ def return_file(filepath):
         return ''
 
 
-def edit_lines(filepath, lines, folderpath):
+def edit_and_export_file(filepath, lines, folderpath):
 
     """ Returns a file with its lines starting with '#" at the beginning and a single table for the remaining data.
 
@@ -395,7 +457,7 @@ def genes_to_normalize_pathways(df):
 
     """
 
-    pivot_df = pd.pivot_table(df, index='Pathway', values='HGNC_symbol', aggfunc=lambda x: len(x.unique()))
+    pivot_df = pd.pivot_table(df, index='Pathway', values='HGNC_Symbol', aggfunc=lambda x: len(x.unique()))
     flattened = pd.DataFrame(pivot_df.to_records())
     return flattened
 
@@ -413,8 +475,8 @@ def join_input_data(df1, df2):
 
     """
 
-    pathways = df2[['Pathway', 'HGNC_symbol']]
-    joint_data = pd.merge(df1, pathways, on=['HGNC_symbol'])
+    pathways = df2[['Pathway', 'HGNC_Symbol']]
+    joint_data = pd.merge(df1, pathways, on=['HGNC_Symbol'])
     return joint_data
 
 
@@ -432,8 +494,8 @@ def create_base_matrix(df):
     """
 
     pivot_table = pd.pivot_table(df,
-                                 index=['child_id', 'Chr', 'Position', 'Ref', 'Alt', 'consequence'],
-                                 values=['HGNC_symbol', 'Pathway'],
+                                 index=['Child_id', 'Chr', 'Pos', 'Ref', 'Alt', 'Consequence'],
+                                 values=['HGNC_Symbol', 'Pathway'],
                                  aggfunc=lambda x: ', '.join(set(x)))
     flattened = pd.DataFrame(pivot_table.to_records())
     return flattened
@@ -513,23 +575,23 @@ def filter_patients(df, patient_id):
 
     """
 
-    df = df[pd.notnull(df['child_id'])]  # Make sure that null columns are deleted
-    df = df[~df['child_id'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
+    df = df[pd.notnull(df['Child_id'])]  # Make sure that null columns are deleted
+    df = df[~df['Child_id'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
 
     if patient_id:
         if os.path.isfile(patient_id):
             file_name = Path(patient_id)
             file_data = pd.read_csv(file_name, header=None, sep="\t")
             file_data = file_data.iloc[:, 0].tolist()
-            df = df[df['child_id'].isin(file_data)]
+            df = df[df['Child_id'].isin(file_data)]
             return df
         else:
             if ',' in patient_id:
                 patients = patient_id.split(',')
-                df = df[df['child_id'].isin(patients)]
+                df = df[df['Child_id'].isin(patients)]
                 return df
             elif ',' not in patient_id:
-                df = df[df.child_id == patient_id]
+                df = df[df.Child_id == patient_id]
                 return df
     elif patient_id is None:
         return df
@@ -556,21 +618,21 @@ def filter_genes(df, gene_id):
             file_name = Path(gene_id)
             file_data = pd.read_csv(file_name, header=None, sep="\t")
             file_data = file_data.iloc[:, 0].tolist()
-            df = df[df['HGNC_symbol'].isin(file_data)]
+            df = df[df['HGNC_Symbol'].isin(file_data)]
             return df
         else:
             if ',' in gene_id:
                 patients = gene_id.split(',')
-                df = df[df['HGNC_symbol'].isin(patients)]
+                df = df[df['HGNC_Symbol'].isin(patients)]
                 return df
             elif ',' not in gene_id:
-                df = df[df.HGNC_symbol == gene_id]
+                df = df[df.HGNC_Symbol == gene_id]
                 return df
     elif gene_id is None:
         return df
 
 
-def filter_consequences(df, consequence):
+def filter_consequences(df, csq):
 
     """ Filters a matrix for a set of consequences.
     The consequence parameter should be pass like: -csq desiredcsq or --consequence desiredcsq or --consequences desiredcsq
@@ -586,22 +648,22 @@ def filter_consequences(df, consequence):
 
     """
 
-    if consequence:
-        if os.path.isfile(consequence):
-            file_name = Path(consequence)
+    if csq:
+        if os.path.isfile(csq):
+            file_name = Path(csq)
             file_data = pd.read_csv(file_name, header=None, sep="\t")
             file_data = file_data.iloc[:, 0].tolist()
-            df = df[df['consequence'].isin(file_data)]
+            df = df[df['Consequence'].isin(file_data)]
             return df
         else:
-            if ',' in consequence:
-                patients = consequence.split(',')
-                df = df[df['consequence'].isin(patients)]
+            if ',' in csq:
+                patients = csq.split(',')
+                df = df[df['Consequence'].isin(patients)]
                 return df
-            elif ',' not in consequence:
-                df = df[df.consequence == consequence]
+            elif ',' not in csq:
+                df = df[df.Consequence == csq]
                 return df
-    elif consequence is None:
+    elif csq is None:
         return df
 
 
@@ -680,7 +742,7 @@ def filter_af(df, max_control_af):
         return df
 
 
-def filter_polyphen(df, pph2):
+def filter_PolyPhen(df, pph2):
 
     """ Filters a matrix by a subset of pph2 labels.
     The parameter should be pass like: -pph2 qualifier or --polyphen qualifier or --polyphen2 qualifier
@@ -697,14 +759,14 @@ def filter_polyphen(df, pph2):
     """
 
     if pph2:
-        df = df[pd.notnull(df['pph2_prediction'])]  # Make sure that null columns are deleted
-        df = df[~df['pph2_prediction'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
+        df = df[pd.notnull(df['PolyPhen_pred'])]  # Make sure that null columns are deleted
+        df = df[~df['PolyPhen_pred'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
         if ',' in pph2:
             pph2_labels = pph2.split(',')
-            df = df[df['pph2_prediction'].isin(pph2_labels)]
+            df = df[df['PolyPhen_pred'].isin(pph2_labels)]
             return df
         elif ',' not in pph2:
-            df = df[df.pph2_prediction == pph2]
+            df = df[df.PolyPhen_pred == pph2]
             return df
     elif pph2 is None:
         return df
@@ -753,14 +815,14 @@ def filter_adj_consequence(df, adj_cons):
     """
 
     if adj_cons:
-        df = df[pd.notnull(df['adjusted_consequence'])]  # Make sure that null columns are deleted
-        df = df[~df['adjusted_consequence'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
+        df = df[pd.notnull(df['Adj_Consequence'])]  # Make sure that null columns are deleted
+        df = df[~df['Adj_Consequence'].astype(str).str.contains('NA')]  # Delete NAs not recognized by Python
         if ',' in adj_cons:
             cons_labels = adj_cons.split(',')
-            df = df[df['adjusted_consequence'].isin(cons_labels)]
+            df = df[df['Adj_Consequence'].isin(cons_labels)]
             return df
         elif ',' not in adj_cons:
-            df = df[df.adjusted_consequence == adj_cons]
+            df = df[df.Adj_Consequence == adj_cons]
             return df
     elif adj_cons is None:
         return df
@@ -787,23 +849,23 @@ def create_pbpm(setting, df, df_to_norm):
     if setting == 'b':
         pivot = pd.concat([df.drop('Pathway', 1), pd.get_dummies(df.Pathway).mul(1)], axis=1)
         flattened = pd.DataFrame(pivot.to_records())
-        filter_cols = [col for col in flattened if (col.startswith('path') or col.startswith('child'))]
+        filter_cols = [col for col in flattened if (col.startswith('path') or col.startswith('Child'))]
         filtered = flattened[filter_cols]
-        final_matrix = filtered.sort_values(by='child_id', ascending=True)
-        final_matrix = final_matrix.groupby('child_id').max()
+        final_matrix = filtered.sort_values(by='Child_id', ascending=True)
+        final_matrix = final_matrix.groupby('Child_id').max()
         final_matrix = pd.DataFrame(final_matrix.to_records())
         return final_matrix
     elif setting == 'n':
-        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
+        pivot = df.pivot_table(values='Consequence', index='Child_id', columns='Pathway', aggfunc='count', fill_value=0)
         flattened = pd.DataFrame(pivot.to_records())
-        final_matrix = flattened.sort_values(by='child_id', ascending=True)
+        final_matrix = flattened.sort_values(by='Child_id', ascending=True)
         return final_matrix
     elif setting == 'nn':
-        pivot = df.pivot_table(values='consequence', index='child_id', columns='Pathway', aggfunc='count', fill_value=0)
+        pivot = df.pivot_table(values='Consequence', index='Child_id', columns='Pathway', aggfunc='count', fill_value=0)
         flattened = pd.DataFrame(pivot.to_records())
         p = list(flattened.columns.values)[1:]
         df_to_norm = df_to_norm[df_to_norm['Pathway'].isin(p)]
-        final_matrix = flattened.set_index('child_id').div(df_to_norm.set_index('Pathway')['HGNC_symbol']).reset_index()
+        final_matrix = flattened.set_index('Child_id').div(df_to_norm.set_index('Pathway')['HGNC_Symbol']).reset_index()
         return final_matrix
 
 
@@ -853,18 +915,28 @@ def format_appended_file(filepath):
     # Read csv coming from int_matrix_appended_path
     # Process appended matrix to create a pbpm again!
     df = pd.read_csv(filepath, comment='#')
-    df = df[['child_id', 'HGNC_symbol', 'consequence']]
-    df = df.drop_duplicates(subset=['child_id', 'HGNC_symbol'])
+    df = format_df(df)
+    df = df[['Child_id', 'HGNC_Symbol', 'Consequence']]
+    df = df.drop_duplicates(subset=['Child_id', 'HGNC_Symbol'])
     return df
 
 
-def logging_info(args, output_logs, output_pbpm, output_im):
+def log_name(setting):
+    if setting == 'b':
+        return 'binary-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+    elif setting == 'n':
+        return 'numerical-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+    elif setting == 'nn':
+        return 'normalized-matrix-{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime()))
+
+
+def logging_info(args, log_filename, output_pbpm, output_im):
 
     """ Records an INFO type log.
 
     Parameters:
         args (dictionary): parsed arguments from command line.
-        output_logs (str): destination of the info log.
+        log_filename (str): destination and name of the info log.
         output_pbpm (str): folder where the final PBPM is downloaded.
         output_im (str): folder where the intermediate base matrix is downloaded.
 
@@ -875,8 +947,6 @@ def logging_info(args, output_logs, output_pbpm, output_im):
 
     is_base = "Intermediate matrix downloaded at: {}".format(output_im) if args['im'] is True else ''
     is_append = "Append filepath for intermediate matrix (if provided): {}".format(args['append']) if args['append'] is not None else ''
-
-    log_filename = os.path.join(output_logs, 'logINFO_{}.log'.format(strftime("%Y-%m-%d_%H꞉%m꞉%S", gmtime())))
     logging.basicConfig(filename=log_filename, level=logging.INFO)
 
     logging.info('PBPM protocol started generation on: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
@@ -892,7 +962,7 @@ def logging_info(args, output_logs, output_pbpm, output_im):
                  "Consequence(s): " + none_to_str(args['csq']) + '\n' +
                  "pLi (greater/equal than): " + none_to_str(args['pli_gt']) + '\n' +
                  "pRecessive (greater than): " + none_to_str(args['pr_g']) + '\n' +
-                 "Max control AF (less than): " + none_to_str(args['af_lt']) + '\n' +
+                 "Max control AF (less or equal than): " + none_to_str(args['af_lt']) + '\n' +
                  "MPC (greater/equal than): " + none_to_str(args['mpc_gt']) + '\n' +
                  "PolyPhen: " + none_to_str(args['pph2']) + '\n' +
                  "Adjusted consequence(s): " + none_to_str(args['adj_csq']) + '\n' + '\n' +
