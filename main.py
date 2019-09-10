@@ -37,7 +37,8 @@ def main():
 
     # ------ Filenames and parameters ------ #
 
-    csv_name = os.path.join(dir_int_folder_output, 'base-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S")))
+    csv_name = os.path.join(dir_int_folder_output,
+                            'intermediate-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S")))
 
     command = "# Script generated with the following parameters --- " + \
               " inputFile: " + args['inputFile'] + \

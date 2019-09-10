@@ -10,7 +10,6 @@ Author: Gabriela Martinez - airamgabriela17@gmail.com
 
 import pandas as pd
 import numpy as np
-from time import gmtime, strftime
 import argparse
 import os
 from pathlib import Path
@@ -41,13 +40,13 @@ def create_directory(folderpath):
 
 def make_cols_null(df):
 
-    """ Converts dataframe 0 or 1 values to None type
+    """ Converts dataframe 0 or 1 values to None type.
 
     Parameters:
-        df (pandas dataframe): with columns that contain 0s or 1s
+        df (pandas dataframe): with columns that contain 0s or 1s.
 
     Returns:
-        make_cols_null(df): pandas dataframe with None columns
+        make_cols_null(df): pandas dataframe with None columns.
 
     """
 
@@ -58,14 +57,14 @@ def make_cols_null(df):
 
 def combine_matrices(df1, df2):
 
-    """ Combines two matrices to replace None values of df1 with non-None values of df2
+    """ Combines two matrices to replace None values of df1 with non-None values of df2.
 
     Parameters:
-        df1 (pandas dataframe): with None column values
-        df2 (pandas dataframe): with 1s column values
+        df1 (pandas dataframe): with None column values.
+        df2 (pandas dataframe): with 1s column values.
 
     Returns:
-        combine_matrices(df1, df2): pandas dataframe with 1s and 0s where None present
+        combine_matrices(df1, df2): pandas dataframe with 1s and 0s where None present.
 
     """
 
@@ -76,13 +75,13 @@ def combine_matrices(df1, df2):
 
 def format_df(df):
 
-    """ Function to change column names
+    """ Function to change column names.
 
     Parameters:
-        df (pandas dataframe)
+        df (pandas dataframe).
 
     Returns:
-        format_df(df): pandas dataframe with columns names changed
+        format_df(df): pandas dataframe with columns names changed.
 
     """
     df = df.rename(columns={"child_id": "Child_id",
@@ -95,8 +94,7 @@ def format_df(df):
                             "MPC": "MPC",
                             "pph2_prediction": "PolyPhen_pred",
                             "pph2_value": "PolyPhen_Value",
-                            "adjusted_consequence": "Adj_Consequence"
-                            })
+                            "adjusted_consequence": "Adj_Consequence"})
     return df
 
 
@@ -148,7 +146,6 @@ def edit_and_export_file(filepath, lines, folderpath):
         filepath (str): folder where the file is located.
         lines (readlines() object): line by line typed file.
         folderpath (str): destination to save the generated output
-
 
     Returns:
         edit_lines(filepath, lines, folderpath): exports input as csv file and returns nothing.
@@ -912,22 +909,43 @@ def format_appended_file(filepath):
 
 
 def log_name(setting):
+
+    """ Function to return the name of the PBPM log according to the PBPM type generated.
+
+    Parameters:
+        setting (str): a command line passed argument indicating the type of PBPM to be extracted.
+
+    Returns:
+        log_name(setting): string with the name of the PBPM log file.
+
+    """
+
     if setting == 'b':
-        return 'binary-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'binary-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
     elif setting == 'n':
-        return 'numerical-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'numerical-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
     elif setting == 'nn':
-        return 'normalized-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'normalized-matrix-{}.log'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
 
 
 def pbpm_name(setting):
 
+    """ Function to return the name of the PBPM generated according to its type.
+
+    Parameters:
+        setting (str): a command line passed argument indicating the type of PBPM to be extracted.
+
+    Returns:
+        pbpm_name(setting): string with the name of the PBPM csv file.
+
+    """
+
     if setting == 'b':
-        return 'binary-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'binary-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
     elif setting == 'n':
-        return 'numerical-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'numerical-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
     elif setting == 'nn':
-        return 'normalized-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+        return 'normalized-matrix-{}.csv'.format(local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
 
 
 def logging_info(args, log_filename, output_pbpm, output_im):
@@ -949,7 +967,7 @@ def logging_info(args, log_filename, output_pbpm, output_im):
     is_append = "Append filepath for intermediate matrix (if provided): {}".format(args['append']) if args['append'] is not None else ''
     logging.basicConfig(filename=log_filename, level=logging.INFO)
 
-    logging.info('PBPM protocol started generation on: ' + local_time.strftime("%Y-%m-%d_%H꞉%m꞉%S"))
+    logging.info('PBPM protocol started generation on: ' + local_time.strftime("%Y-%m-%d_%H꞉%M꞉%S"))
     logging.info('Process initiated by the user ' + getpass.getuser())
     logging.info('\n' + '\n' +
                  "Protocol successfully generated! " + '\n' + '\n'
